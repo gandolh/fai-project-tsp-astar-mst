@@ -25,7 +25,7 @@ class TSPSolver:
         visited_start[start - 1] = 1
 
 
-        initial_h = self.heuristic.evaluate(visited_start)
+        initial_h = self.heuristic.evaluate(visited_start, start)
         # Priority queue elements: (f, g, current, visited_array, path)
         # f: total estimated cost f = g + h.
         # g: cost so far (actual path cost).
@@ -85,7 +85,7 @@ class TSPSolver:
                 best_g[state_key] = g_new
 
                 # heuristic evaluation
-                h = self.heuristic.evaluate(new_visited)
+                h = self.heuristic.evaluate(new_visited, v)
                 f_new = g_new + h
                 heapq.heappush(open_list, (f_new, g_new, v, new_visited, path + [v]))
 

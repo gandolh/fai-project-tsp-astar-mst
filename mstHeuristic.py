@@ -55,7 +55,7 @@ class MSTHeuristic:
 
         return total_cost
 
-    def evaluate(self, visited: List[int]) -> int:
+    def evaluate(self, visited: List[int], current: int) -> int:
         # Compute the non-visited nodes
         remaining = []
         for v in range(1, self.graph.n + 1):
@@ -66,11 +66,10 @@ class MSTHeuristic:
         if not remaining:
             return 0
 
-        # If the start node is not in the remaining nodes, add it because we 
-        # want to take it in consideration to make a full cycle
-        if self.start not in remaining:
-            remaining_plus_start = remaining + [self.start]
-        else:
-            remaining_plus_start = remaining
+        # Build the subset for MST: current node + remaining unvisited + start
+        # This represents the nodes we still need to connect to complete the tour
+        subset = set(remaining)
+        subset.add(current)
+        subset.add(self.start)
 
-        return self.mst_cost_subset(remaining_plus_start)
+        return self.mst_cost_subset(list(subset))

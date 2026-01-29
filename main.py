@@ -3,7 +3,7 @@ from tspSolver import TSPSolver
 
 
 def main():
-    graph_path = "graph.txt"
+    graph_path = "test_graph.txt"
     graph = graph_from_file(graph_path)
     start_vertex = 1
     solver = TSPSolver(graph, start=start_vertex)
